@@ -2,7 +2,7 @@ from django.urls import path
 
 from cities.views import *
 
-from find_route.src.cities.views import CityUpdateView
+from cities.views import CityUpdateView
 
 urlpatterns = [
     path('', home, name='home'),
