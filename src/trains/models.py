@@ -17,3 +17,15 @@ class Train(models.Model):
         verbose_name_plural = 'Поезда'
         ordering = ['travel_time']
 
+class TestTrain(models.Model):
+    id = models.IntegerField(primary_key=True)
+    cost = models.CharField(max_length=255, null=True)
+
+    # Отображение в панели администратора
+    def __str__(self):
+        return self.cost
+    # отображение полей в таблицы
+    class Meta:
+        verbose_name = 'ТЕСТПоезд'
+        verbose_name_plural = 'ТЕСТПоезда'
+        ordering = ['id']

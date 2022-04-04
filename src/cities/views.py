@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponse
 from django.shortcuts import render
 from cities.models import City
 from cities.forms import HtmlForm, CityForm
@@ -6,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 __all__ = (
-    'home', 'CityDetailView', 'CityCreateView', 'CityUpdateView', 'CityDeleteView'
+    'home', 'CityDetailView', 'CityCreateView', 'CityUpdateView', 'CityDeleteView', 'page'
 )
 
 
@@ -29,13 +30,11 @@ class CityDetailView(DetailView):
     queryset = City.objects.all()
     template_name = 'cities/detail.html'
 
-
 class CityCreateView(CreateView):
     model = City
     form_class = CityForm
     template_name = 'cities/create.html'
     success_url = reverse_lazy('cities:home')
-
 
 class CityUpdateView(SuccessMessageMixin, UpdateView):
     model = City
@@ -44,9 +43,17 @@ class CityUpdateView(SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('cities:home')
     success_message = "Город успешно отредактирован"
 
-
-
 class CityDeleteView(SuccessMessageMixin, DeleteView):
     model = City
     template_name = 'cities/delete.html'
     success_url = reverse_lazy('cities:home')
+
+# def page(request, page_num):
+#         try:
+#             num = int(page_num)
+#             return HttpResponse(f'int page {page_num}')
+#         except:
+#             return HttpResponse('Страница 404 такой страницы не существует')
+
+def page(request, page_num):
+    return HttpResponse(f'page {page_num}')
